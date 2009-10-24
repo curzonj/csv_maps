@@ -5,13 +5,17 @@ require 'do_sqlite3'
 require 'json'
 require 'digest/md5'
 
-DataMapper.setup(:default, if ENV['DATABASE_URL']
+ENV['DATABASE_URL'] ||= "sqlite3://#{Dir.pwd}/db.sqlite3"
+case ENV['DATABASE_URL']
+when /postgres/
   require 'do_postgres'
-  ENV['DATABASE_URL']
-else
+when /mysql/
+  require 'do_mysql'
+when /sqlite/
   require 'do_sqlite3'
-  "sqlite3://#{Dir.pwd}/db.sqlite3"
-end)
+end
+
+DataMapper.setup(:default, ENV['DATABASE_URL'])
 
 class CsvMap
   include DataMapper::Resource

@@ -25,7 +25,11 @@ post '/' do
   map = CsvMap.new(params[:map])
 
   if map.import
-    redirect(ENV['redirect_url'] + map.slug)
+    if params[:next] == 'redirect'
+      redirect("http://maps.google.com/?q=" + ENV['base_url'] + map.slug)
+    else
+      ENV['base_url'] + map.slug
+    end
   else
     @error_msg = "We were unable to load your map, sorry."
     haml :upload

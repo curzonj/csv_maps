@@ -16,6 +16,8 @@
 
       .form
         %form{ :action => "/", :method => 'POST', :enctype => "multipart/form-data" }
+          %input{ :type => 'hidden', :name => 'next', :value => "redirect" }
+
           .field
             %label{ :for => 'map[name]' } Map Name
             %input{ :name => 'map[name]' }
