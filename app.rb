@@ -25,7 +25,7 @@ post '/' do
   map = CsvMap.new(params[:map])
 
   if map.import
-    if params[:next] == 'redirect'
+    if params[:next] == 'redirect' && ENV['base_url'] !~ /localhost/
       redirect("http://maps.google.com/?q=" + ENV['base_url'] + map.slug)
     else
       ENV['base_url'] + map.slug

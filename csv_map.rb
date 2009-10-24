@@ -20,10 +20,6 @@ DataMapper.setup(:default, ENV['DATABASE_URL'])
 class CsvMap
   include DataMapper::Resource
 
-  class << self
-    attr_accessor :title_field
-  end
-
   property :slug, String, :key => true
   property :name, String
   property :headers_data, Text
@@ -48,6 +44,7 @@ class CsvMap
 
     FasterCSV.parse(self.csv_data, :headers => true) do |line|
       self.headers_data ||= line.headers.join(',')
+      @title_field ||= line.headers.select {|k| k =~ /name/i }.first
 
       @points << parse_line(line)
     end
@@ -70,8 +67,8 @@ class CsvMap
     hash['latitude'] = coords[:latitude]
     hash['longitude'] = coords[:longitude]
 
-    unless self.class.title_field.nil?
-      hash['title'] = hash[self.class.title_field]
+    unless @title_field.nil?
+      hash['title'] = hash[@title_field]
     end
 
     hash
