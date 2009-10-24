@@ -9,7 +9,7 @@ require 'rack_hoptoad'
 LOG = Logger.new(ENV['RACK_ENV'] == 'production' ?
   (File.dirname(__FILE__) + '/log/sinatra.log') : $stderr)
 
-%w{ hoptoad_key redirect_url yahoo_key }.each do |key|
+%w{ hoptoad_key base_url yahoo_key }.each do |key|
   raise "Missing environment variable: #{key}" unless ENV.include?(key)
 end
 
