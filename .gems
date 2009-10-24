@@ -1,0 +1,7 @@
+dm-core
+do_postgres
+haml
+fastercsv
+httparty
+rack_hoptoad
+json

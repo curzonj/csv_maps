@@ -1,0 +1,9 @@
+= About
+
+A simple app for uploading csv files and converting them into GeoRSS feeds to view in google maps.
+
+= Data format
+
+Looks up addresses via following fields:
+
+  /Street 1/, /[Zip|Postal Code]/

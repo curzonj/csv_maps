@@ -1,0 +1,28 @@
+%html
+  %head
+    %style
+      :sass
+        .form
+          color = #3bbfce
+
+  %body
+    .content
+      - if @error_msg
+        .error
+          %p= @error_msg
+
+      .instructions
+        %p Please upload a CSV file:
+
+      .form
+        %form{ :action => "/", :method => 'POST', :enctype => "multipart/form-data" }
+          .field
+            %label{ :for => 'map[name]' } Map Name
+            %input{ :name => 'map[name]' }
+
+          .field
+            %label{ :for => 'map[file]' } CSV File
+            %input{ :type => 'file', :name => 'map[file]' }
+
+          .submit
+            %input{ :type => 'submit', :value => "Create" }
