@@ -7,6 +7,9 @@
 +blueprint-interaction
 +blueprint-form
 
+.container
+  padding: 10px
+
 .header
   +column(20, true)
   h1
@@ -16,7 +19,6 @@
 
 .body
   +column(20, true)
-  padding: 10px
 
   h2
     font-size: 1.5em
@@ -37,12 +39,15 @@
 
 .footer
   padding-top: 20px
+  background: #99CC66
+  +column(20, true)
+
+  a
+    color: black
 
   .links
     +column(10)
     +prepend(1)
-    // important for the horizontal list
-    display: inline
     margin-left: 0px
 
     li.first
@@ -55,8 +60,9 @@
       padding-right: 5px
 
   .copyright
-    +column(8, true)
-    +prepend(2)
+    +column(7)
+    padding-left: 50px
+
     span
       float: left
       margin-right: 10px
