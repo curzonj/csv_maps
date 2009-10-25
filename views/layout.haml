@@ -1,0 +1,23 @@
+%html
+  %head
+    %style
+      :sass
+        .form
+          color = #3bbfce
+
+  %body
+    .content
+      - if @error_msg
+        .error
+          %p= @error_msg
+
+      = yield
+
+    :javascript
+      var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+      document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+    :javascript
+      try {
+      var pageTracker = _gat._getTracker("#{ENV['GOOGLE_ANALYTICS']}");
+      pageTracker._trackPageview();
+      } catch(err) {}
