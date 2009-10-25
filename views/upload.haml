@@ -1,17 +1,29 @@
-.instructions
-  %p Please upload a CSV file:
+.welcome
+  %h2 About
+  %p This tool will create a private URL and redirect you to Google Maps with the URL so that you can view your CSV data plotted on Google Maps by street and zipcode. If you post to the form programatically the url will be returned as the entire body of the response.
 
-  .form
-    %form{ :action => "/", :method => 'POST', :enctype => "multipart/form-data" }
-      %input{ :type => 'hidden', :name => 'next', :value => "redirect" }
+  %h2 File Format
+  %p Your CSV needs to have column names matching "Street 1", "Zip Code" (or "Postal Code"), and "Name". The columns headings only have to have that as part of the name, it doesn't need to match exactly.
 
-      .field
+.messages
+  - if @error_msg
+    .error
+      %p= @error_msg
+
+.form
+  %form{ :action => "/", :method => 'POST', :enctype => "multipart/form-data" }
+    %input{ :type => 'hidden', :name => 'next', :value => "redirect" }
+
+    %fieldset
+      %legend Please upload a CSV file:
+
+      %p.field
         %label{ :for => 'map[name]' } Map Name
         %input{ :name => 'map[name]' }
 
-      .field
+      %p.field
         %label{ :for => 'map[file]' } CSV File
         %input{ :type => 'file', :name => 'map[file]' }
 
-      .submit
+      %p.submit
         %input{ :type => 'submit', :value => "Create" }

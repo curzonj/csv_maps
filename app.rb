@@ -5,16 +5,33 @@ require 'builder'
 require 'csv_map'
 require 'logger'
 require 'rack_hoptoad'
-
-LOG = Logger.new(ENV['RACK_ENV'] == 'production' ?
-  (File.dirname(__FILE__) + '/log/sinatra.log') : $stderr)
-
-%w{ hoptoad_key base_url yahoo_key GOOGLE_ANALYTICS }.each do |key|
-  raise "Missing environment variable: #{key}" unless ENV.include?(key)
-end
+require 'compass'
 
 use Rack::HoptoadNotifier, ENV['hoptoad_key']
-Yahoo.apikey = ENV['yahoo_key']
+
+configure do
+  LOG = Logger.new(ENV['RACK_ENV'] == 'production' ?
+    (File.dirname(__FILE__) + '/log/sinatra.log') : $stderr)
+
+  %w{ hoptoad_key base_url yahoo_key GOOGLE_ANALYTICS }.each do |key|
+    raise "Missing environment variable: #{key}" unless ENV.include?(key)
+  end
+
+  Yahoo.apikey = ENV['yahoo_key']
+
+  Compass.configuration do |config|
+    config.project_path = File.dirname(__FILE__)
+    config.sass_dir = 'views'
+  end
+    
+  set :haml, { :format => :html5 }
+  set :sass, Compass.sass_engine_options
+end
+
+get '/screen.css' do
+  content_type 'text/css', :charset => 'utf-8'
+  sass :screen
+end
 
 # Upload the files
 get '/' do

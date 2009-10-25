@@ -54,7 +54,7 @@ class CsvMap
     self.save
   rescue
     LOG.error("Exception: "+$!.message)
-    raise $! if ENV['RACK_ENV'] == 'development'
+  #  raise $! if ENV['RACK_ENV'] == 'development'
 
     false
   end

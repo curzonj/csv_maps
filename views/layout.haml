@@ -1,17 +1,33 @@
-%html
+!!!
+!!! XML
+!!! Strict
+%html{ :xmlns => "http://www.w3.org/1999/xhtml", :lang => "en", 'xml:lang' => "en" }
   %head
-    %style
-      :sass
-        .form
-          color = #3bbfce
+    %title CSV to GeoRSS Converter
+    %meta{'http-equiv'=>"Content-Type", :content=>"text/html; charset=iso-8859-1"}/
+    %meta{'http-equiv'=>"Content-Language", :content=>"en-us"}/
+    %link{:href=>"/screen.css", :media=>"screen", :rel=>"stylesheet", :type=>"text/css"}/
 
   %body
-    .content
-      - if @error_msg
-        .error
-          %p= @error_msg
+    .container
+      .header
+        %h1 CSV to GeoRSS Converter
+      .body
+        = yield
+      .footer
+        %ul.links
+          %li.first
+            %a{ :href => 'http://github.com/curzonj/csv_maps'} Source Code
+          |
+          %li
+            %a{ :href => 'http://richfrog.curzons.net'} Blog
 
-      = yield
+        %p.copyright
+          %span Copyright 2009 Jordan Curzon
+          <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/us/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-nc-sa/3.0/us/80x15.png" /></a>
+
+    %a{ :href => 'http://github.com/curzonj/csv_maps' }
+      <img style="position: absolute; top: 0; right: 0; border: 0;" src="http://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png" alt="Fork me on GitHub" />
 
     :javascript
       var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
